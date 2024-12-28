@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class player : MonoBehaviour
 {
+    public AudioSource audio;
     public int bulletcount = 10;
     public GameObject bulletp;
     public List<GameObject> bullet;
@@ -16,6 +17,7 @@ public class player : MonoBehaviour
         for(int i = 0; i < bulletcount; i++)
         {
             bullet.Add(Instantiate(bulletp));
+            bullet[i].SetActive(false);
         }
     }
 
@@ -41,8 +43,19 @@ public class player : MonoBehaviour
         ct -= Time.deltaTime;
     }
 
+    int bulletindex = 0;
     void Shot()
     {
-        
+        audio.Play();
+        bullet[bulletindex].SetActive(true);
+        bullet[bulletindex].transform.position = transform.position;
+        if (bulletindex < bulletcount-1)
+        {
+            bulletindex++;
+        }
+        else
+        {
+            bulletindex = 0;
+        }
     }
 }
